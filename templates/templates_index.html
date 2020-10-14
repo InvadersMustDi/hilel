@@ -1,0 +1,22 @@
+<br>
+<h2>Books list</h2>
+<h1>
+    <table width="100%">
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Author</th>
+            <th>Genre</th>
+            <th>Year</th>
+        </tr>
+        {% for books in books %}
+            <tr align="center">
+                <td>{{books.id}}</td>
+                <td>{{books.name}}</td>
+                <td>{{books.author_obj.name}}</td>
+                <td>{{books.genre_obj.name}}</td>
+                <td>{{books.year}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</h1>

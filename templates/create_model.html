@@ -1,0 +1,10 @@
+<h1>{{title}}</h1>
+{% if success %}
+    <h2 style="color: green">Data was saved!</h2>
+{% endif %}
+<form method="post">
+{% for field in form %}
+  <p>{{ field.label }} {{ field }}</p>
+{% endfor %}
+    <button type="submit">Save</button>
+</form>
