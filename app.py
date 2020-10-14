@@ -7,7 +7,6 @@ from models import Genre, Books, Author
 
 app = Flask(__name__, template_folder='templates')
 
-
 def create_form_handler(form_class, model_class, title):
     form = form_class()
     success = False
@@ -19,7 +18,23 @@ def create_form_handler(form_class, model_class, title):
             session.add(obj)
             session.commit()
             success = True
-            print(obj)
+
+    return render_template(
+        'create_model.html', **{
+            'form': form,
+            'title': title,
+            'success': success
+        }
+    )
+
+def update_form_handler(form, model, title):
+    success = False
+    if request.method == 'POST':
+        if form.validate():
+            form.populate_obj(model)
+            session.add(model)
+            session.commit()
+            success = True
 
     return render_template(
         'create_model.html', **{
@@ -51,6 +66,15 @@ def add_author():
 @app.route('/add/genre/', methods=['GET', 'POST'])
 def add_genre():
     return create_form_handler(GenreForm, Genre, 'Add Genre')
+
+@app.route('/update/book/<book_id>', methods=['GET', 'POST'])
+def update_book(book_id):
+
+    book = session.query(Books).get(book_id)
+    
+    form = BooksForm(request.form)
+
+    return update_form_handler(form, book, 'Update book')
 
 
 if __name__ == '__main__':

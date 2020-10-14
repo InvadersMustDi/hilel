@@ -6,7 +6,6 @@ from db import engine
 
 session = scoped_session(sessionmaker(bind=engine))
 
-
 BooksForm = model_form(Books, db_session=session)
 AuthorFrom = model_form(Author)
 GenreForm = model_form(Genre)
