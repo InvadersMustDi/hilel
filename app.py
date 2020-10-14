@@ -62,18 +62,18 @@ def create_books():
 def add_author():
     return create_form_handler(AuthorFrom, Author, 'Add Author')
 
-
+5
 @app.route('/add/genre/', methods=['GET', 'POST'])
 def add_genre():
     return create_form_handler(GenreForm, Genre, 'Add Genre')
 
 @app.route('/update/book/<book_id>', methods=['GET', 'POST'])
 def update_book(book_id):
-
+    #print(123,book_id)
     book = session.query(Books).get(book_id)
+    #print(1234, book)
+    form = BooksForm(request.form, obj=book)
     
-    form = BooksForm(request.form)
-
     return update_form_handler(form, book, 'Update book')
 
 
